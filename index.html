@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumi Forge: Transform Written and Spoken Words into Interactive Experiences</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-color: #e4e6e8; /* steel-200 */
+            --text-color: #273345; /* steel-800 */
+            --highlight-color: #0e7490; /* cyan-700 */
+            --calm-highlight-color:rgba(19, 121, 155, 0.2); /* cyan-300 */
+            --secondary-text: #7C3573; /* burgundy-600 */
+            --overlay-color: rgba(228, 230, 232, 0.6);
+            --toggle-bg: rgba(228, 230, 232, 0.8);
+        }
+
+        .dark {
+            /* Dark Mode Colors */
+            --bg-color: #273345; /* steel-800 */
+            --text-color: #e4e6e8; /* steel-200 */
+            --highlight-color: #67e8f9; /* cyan-300 */
+            --calm-highlight-color:rgba(234, 190, 248, 0.2); /* cyan-300 */
+            --secondary-text: #f9cde2; /* burgundy-200 */
+            --overlay-color: rgba(39, 51, 69, 0.6);
+            --toggle-bg: rgba(39, 51, 69, 0.8);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* Custom Scrollbar Styling */
+        /* Webkit browsers (Chrome, Safari, Edge) */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+            transition: background 0.5s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--highlight-color);
+            border-radius: 6px;
+            border: 2px solid var(--bg-color);
+            transition: background 0.5s ease, border-color 0.5s ease;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-text);
+        }
+        
+        /* Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: var(--highlight-color) var(--bg-color);
+        }
+        
+        body {
+            font-family: "Inter", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            min-height: 100svh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            overflow-x: hidden;
+        }
+
+        /* Backgrounds */
+        .bg-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+        .bg-image {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: background-image 0.5s ease;
+        }
+        
+        html:not(.dark) .bg-image {
+            background-image: url('https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/background-light-mode.webp');
+        }
+        
+        html.dark .bg-image {
+            background-image: url('https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/background-dark-mode2.webp');
+        }
+        
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(0.3em);
+            -webkit-backdrop-filter: blur(0.3em);
+            transition: background 0.5s ease;
+        }
+        
+        html:not(.dark) .bg-overlay {
+            background: linear-gradient(to right, rgba(252, 231, 243, 0.2), rgba(240, 253, 250, 0.5), rgba(252, 231, 243, 0.2));
+        }
+        
+        html.dark .bg-overlay {
+            background: linear-gradient(to right, rgba(90, 37, 81, 0.2), rgba(39, 51, 69, 0.3), rgba(90, 37, 81, 0.2));
+        }
+
+        /* Content */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            padding: 2rem;
+            padding-top: clamp(2rem, 5vh, 6rem);
+            padding-bottom: 2rem;
+            text-align: center;
+        }
+        
+        /* Logo and Brand Name Container */
+        .logo-brand-container {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .logo {
+            position: absolute;
+            right: 100%;
+            height: clamp(80px, 12vh, 160px);
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
+            margin-right: clamp(1rem, 3vw, 2.5rem);
+            animation: fadeIn 2s ease-out 0.2s backwards;
+        }
+        
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .brand-name {
+            font-family: "Merriweather", serif;
+            font-weight: 700;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            color: var(--highlight-color);
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            margin: 0;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            animation: slideUp 1s ease-out 0.2s backwards;
+            transition: color 0.5s ease;
+        }
+        
+        .subtitle {
+            font-size: clamp(2rem, 3vw, 2rem);
+            color: var(--secondary-text);
+            margin-top: 0.5em;
+            font-weight: 300;
+            animation: slideUp 1s ease-out 0.4s backwards;
+            transition: color 0.5s ease;
+        }
+        
+        .description {
+            font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+            color: var(--text-color);
+            margin-top: clamp(2rem, 4vh, 3rem);
+            margin-bottom: clamp(1.5rem, 2vh, 2rem);
+            max-width: 800px;
+            line-height: 1.7;
+            font-weight: 300;
+            padding: clamp(1.5rem, 3vh, 2rem);
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out 0.6s backwards;
+            transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+        }
+        
+        html:not(.dark) .description {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        html.dark .description {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Content Sections */
+        .content-sections {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: clamp(2rem, 3vh, 3rem) 2rem;
+            padding-top: clamp(1.5rem, 2vh, 2rem);
+            padding-bottom: clamp(8rem, 12vh, 10rem);
+            display: flex;
+            flex-direction: column;
+            gap: clamp(3rem, 6vh, 5rem);
+            align-items: center;
+        }
+        
+        .section {
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .section:nth-child(1) {
+            animation-delay: 0.8s;
+        }
+        
+        .section:nth-child(2) {
+            animation-delay: 1s;
+        }
+        
+        .section-heading {
+            font-family: "Merriweather", serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--highlight-color);
+            text-align: center;
+            margin: 0;
+            transition: color 0.5s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .section:nth-child(1) .section-heading {
+            animation-delay: 0.9s;
+        }
+        
+        .section:nth-child(2) .section-heading {
+            animation-delay: 1.1s;
+        }
+        
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .section:nth-child(1) .section-content {
+            animation-delay: 1s;
+        }
+        
+        .section:nth-child(2) .section-content {
+            animation-delay: 1.2s;
+        }
+        
+        .section-text {
+            font-size: clamp(1rem, 1.8vw, 1.125rem);
+            line-height: 1.7;
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+        
+        .image-caption-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 1.5rem auto;
+            max-width: 700px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .section-image {
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: block;
+            margin: 0;
+        }
+        
+        html:not(.dark) .section-image {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        html.dark .section-image {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-image-caption {
+            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            color: var(--secondary-text);
+            text-align: center;
+            font-style: italic;
+            margin-top: 0.5rem;
+            margin-bottom: 0;
+            transition: color 0.5s ease;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        .section:nth-child(1) .feature-list {
+            animation-delay: 1.1s;
+        }
+        
+        .section:nth-child(2) .feature-list {
+            animation-delay: 1.3s;
+        }
+        
+        .feature-item {
+            font-size: clamp(1rem, 1.8vw, 1.125rem);
+            line-height: 1.7;
+            color: var(--text-color);
+            padding-left: 1.5rem;
+            position: relative;
+            transition: color 0.5s ease;
+        }
+        
+        .feature-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--highlight-color);
+            font-size: 1.5em;
+            line-height: 1;
+        }
+        
+        /* Section Dividers */
+        .section-divider {
+            width: 100%;
+            max-width: 1000px;
+            height: 1px;
+            margin: clamp(2rem, 2vh, 3rem) auto;
+            background: linear-gradient(to right, 
+                transparent, 
+                var(--secondary-text), 
+                transparent
+            );
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out backwards;
+            transition: opacity 0.5s ease, background 0.5s ease;
+        }
+        
+        html:not(.dark) .section-divider {
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(0, 0, 0, 0.2), 
+                transparent
+            );
+        }
+        
+        html.dark .section-divider {
+            background: linear-gradient(to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+        }
+        
+        /* Creator Contact */
+        .creator-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            font-size: clamp(1.1rem, 2.1vw, 1.2rem);
+            font-weight: 400;
+            color: var(--text-color);
+            animation: fadeInUp 0.8s ease-out backwards;
+            animation-delay: 0.5s;
+            transition: all 0.5s ease;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        html:not(.dark) .creator-contact {
+            background: rgba(14, 116, 144, 0.15);
+            border: 1px solid rgba(14, 116, 144, 0.3);
+        }
+        
+        html.dark .creator-contact {
+            background: rgba(103, 232, 249, 0.12);
+            border: 1px solid rgba(103, 232, 249, 0.25);
+        }
+        
+        .creator-contact a {
+            color: var(--text-color);
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+        
+        .creator-contact a:hover {
+            opacity: 0.8;
+        }
+        
+        .creator-contact-info {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .creator-contact-name {
+            font-weight: 600;
+        }
+        
+        /* Mission Section */
+        .mission-section {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .mission-text {
+            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            line-height: 1.8;
+            color: var(--text-color);
+            margin: 1.5rem 0;
+            transition: color 0.5s ease;
+        }
+        
+        /* Future Features */
+        .future-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+            max-width: 900px;
+        }
+        
+        .future-feature {
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            animation: fadeInUp 0.8s ease-out backwards;
+        }
+        
+        html:not(.dark) .future-feature {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        html.dark .future-feature {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .future-feature-title {
+            font-family: "Merriweather", serif;
+            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            font-weight: 600;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+            transition: color 0.5s ease;
+        }
+        
+        .future-feature-text {
+            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            line-height: 1.6;
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+        
+        /* Call to Action */
+        .cta-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: clamp(2rem, 4vh, 3rem);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out backwards;
+            transition: all 0.5s ease;
+        }
+        
+        html:not(.dark) .cta-section {
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        html.dark .cta-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cta-contact-divider {
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            transition: border-color 0.5s ease;
+        }
+        
+        html.dark .cta-contact-divider {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .cta-heading {
+            font-family: "Merriweather", serif;
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--highlight-color);
+            margin-bottom: 1rem;
+            transition: color 0.5s ease;
+        }
+        
+        .cta-text {
+            font-size: clamp(1rem, 1.8vw, 1.125rem);
+            line-height: 1.7;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+            transition: color 0.5s ease;
+        }
+        
+        .cta-section a {
+            transition: opacity 0.3s ease;
+        }
+        
+        .cta-section a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Content Types Highlight */
+        .content-types-highlight {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-radius: 2rem;
+            animation: fadeInUp 0.8s ease-out backwards;
+            transition: all 0.5s ease;
+        }
+        
+        html:not(.dark) .content-types-highlight {
+            background: rgba(14, 116, 144, 0.15);
+            border: 1px solid rgba(14, 116, 144, 0.3);
+        }
+        
+        html.dark .content-types-highlight {
+            background: rgba(103, 232, 249, 0.12);
+            border: 1px solid rgba(103, 232, 249, 0.25);
+        }
+        
+        .content-types-intro {
+            font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+            color: var(--text-color);
+            margin: 0;
+            transition: color 0.5s ease;
+        }
+        
+        .content-type-tag {
+            display: inline-block;
+            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+            color: var(--highlight-color);
+            font-weight: 500;
+            transition: color 0.5s ease;
+        }
+        
+        .feature-item strong {
+            color: var(--highlight-color);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0.2rem 2rem;
+            backdrop-filter: blur(0.5em);
+            -webkit-backdrop-filter: blur(0.5em);
+        }
+        
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 4.5rem;
+            z-index: 30;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--toggle-bg);
+            backdrop-filter: blur(0.5em);
+            -webkit-backdrop-filter: blur(0.5em);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .theme-toggle:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+        
+        .theme-toggle svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: clamp(0.75rem, 1.25vw, 0.75rem);
+            color: var(--text-color);
+            transition: color 0.5s ease;
+        }
+
+        .footer-link {
+            color: var(--highlight-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease, color 0.5s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        @keyframes fadeIn { 
+            from { opacity: 0; } 
+            to { opacity: 1; } 
+        }
+        
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(20px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+
+        /* Responsive */
+        /* Small phones */
+        @media (max-width: 480px) {
+            .logo-brand-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo {
+                position: relative !important;
+                right: auto !important;
+                left: auto !important;
+                margin-right: 0 !important;
+                margin-bottom: 1rem;
+                animation: fadeIn 1s ease-out 0.2s backwards;
+            }
+            .main-content {
+                padding: 1rem;
+                padding-top: clamp(1.5rem, 4vh, 4rem);
+            }
+            .content-sections {
+                padding: clamp(2rem, 5vh, 4rem) 1rem;
+                padding-bottom: clamp(6rem, 10vh, 8rem);
+            }
+            .section {
+                gap: 1.5rem;
+            }
+            .footer {
+                padding: 1rem;
+            }
+            .footer-content {
+                font-size: 0.75rem;
+                text-align: center;
+            }
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                width: 2.25rem;
+                height: 2.25rem;
+                font-size: 1rem;
+            }
+            .theme-toggle svg {
+                width: 1rem;
+                height: 1rem;
+            }
+            .future-features {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .cta-section {
+                padding: 1.5rem;
+                margin: 2rem auto;
+            }
+        }
+        
+        /* Tablets and small laptops */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .main-content {
+                padding: 2.5rem;
+            }
+            .content-sections {
+                padding: clamp(3rem, 6vh, 5rem) 2.5rem;
+            }
+        }
+        
+        /* Large screens and HD */
+        @media (min-width: 1920px) {
+            .logo {
+                height: clamp(120px, 15vh, 200px);
+            }
+            .main-content {
+                padding: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-container">
+        <div class="bg-image"></div>
+        <div class="bg-overlay"></div>
+    </div>
+    
+    <div class="main-content">
+        <div class="logo-brand-container">
+            <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/lumi-forge-sm.png" alt="Lumi Forge" class="logo">
+            <div class="text-container">
+                <h1 class="brand-name">Lumi Forge</h1>
+                <div class="subtitle">Igniting the power of words.</div>
+            </div>
+        </div>
+        
+        <p class="description">
+            Lumi Forge transforms books, articles, videos, and courses into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
+        </p>
+        
+        <div class="creator-contact">
+            <div style="margin-bottom: 0.75rem;">If you are interested in being a Lumi Forge creator, get in touch with us:</div>
+            <span class="creator-contact-name">Evan Marie Carr</span>
+            <div class="creator-contact-info">
+                
+                <a href="mailto:evanmarie@darkviolet.ai">evanmarie@darkviolet.ai</a> • 
+                <a href="tel:6785200677">678-520-0677</a> • 
+                <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer">darkviolet.ai</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-sections">
+        <div class="section-divider" style="animation-delay: 0.7s;"></div>
+        
+        <!-- For Creators Section -->
+        <div class="section">
+            <h2 class="section-heading">For Creators</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    Transform your written or spoken words into interactive journeys that captivate your audience. Lumi Forge ignites the power of your words and turns them into dynamic, AI-powered experiences.
+                </p>
+                
+                <div class="content-types-highlight" style="animation-delay: 0.9s;">
+                    <p class="content-types-intro">
+                        <strong style="color: var(--highlight-color);">Perfect for:</strong> books, articles, essays, videos, documentaries, courses, and training materials.
+                    </p>
+                </div>
+                
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/how-this-works-8.webp" 
+                        alt="The Lumi Forge Creator Library" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">The Lumi Forge Creator Library</p>
+                </div>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Flexibility to Create</h3>
+                <p class="section-text">
+                    As a creator on Lumi Forge, you have multiple powerful paths to bring your vision to life:
+                </p>
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/lumi-forge-content-creation2.webp" 
+                        alt="Two Ways to Create: Self-Service and Full-Service" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">Self-Service, Full-Service, and Hybrid</p>
+                </div>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>The Creator Studio (Self-Service):</strong> Use our suite of tools to build and maintain your spaces yourself. Write manually in our Content Forge editor, or leverage our AI to transform your ideas into polished Resources, Explorations, and Luminations.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Full-Service Transformation:</strong> Let our development team handle everything. Simply describe how you want explorers to engage with your work, and we'll bring that vision to life using Lumi Forge's proprietary framework.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Hybrid Approach:</strong> Combine our tools with our development team's expertise. Our methods are as unique as our creators.
+                    </li>
+                </ul>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">AI-Powered Creation Tools</h3>
+                <p class="section-text">
+                    Lumi Forge harnesses AI to accelerate your creation process. Whether you have a polished PDF ready to transform or just a collection of ideas, our tools meet you where you are.
+                </p>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>Upload & Transform PDFs:</strong> Upload your PDF documents and transform them into rich, interactive Explorations. Our system parses your content and helps you extract key concepts, structure chapters, rewrite dense text into accessible language, and generate interactive questions.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Choose Your Format:</strong> Select from multiple layout styles including Standard Article, Step-by-Step Guide, Case Study, Academic Paper, and more. The AI structures your content to match your selection.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Customize Tone & Voice:</strong> Maintain your original wording or adjust the style to be Professional, Casual, Enthusiastic, Socratic, or Concise. This ensures your content resonates with your specific audience.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Interactive Components:</strong> Include specialty elements like 3D Image Carousels, Highlight Panels, Interactive Timelines, or Check Your Understanding questions directly in your generated content.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Seamless Editing:</strong> Generate a draft structure, apply your chosen tone, then immediately jump into manual editing to tweak, refine, or rewrite sections. AI handles the heavy lifting while you maintain creative control.
+                    </li>
+                </ul>
+                
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/how-this-works-15.webp" 
+                        alt="PDF conversion to interactive content" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">Transform static documents into interactive learning experiences.</p>
+                </div>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Your Rights & Protections</h3>
+                <p class="section-text">
+                    Your content belongs to you. Whether we build your interactive experience for you or you create it yourself using the Creator Studio, your intellectual property remains yours.
+                </p>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>Complete IP Ownership:</strong> Your manuscripts, videos, prompts, and all interactive experiences we create remain your property. We don't grant any licenses to AI providers to use your work.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Privacy-First AI:</strong> We use strict privacy settings and enterprise-grade AI services with commercial terms that strictly prohibit training on your data. Your content is never used to train AI models.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Zero Data Retention:</strong> When you use Creator Studio, data sent to AI providers is ephemeral—used only to generate your response and then discarded. Your content stays confidential.
+                    </li>
+                    <li class="feature-item">
+                        <strong>No Third-Party Training:</strong> We do not consent to your content being used to train any third-party models. Your intellectual property is protected at every step.
+                    </li>
+                </ul>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">The Ecosystem & Experience</h3>
+                <p class="section-text">
+                    The Lumi Forge ecosystem guides learners from broad concepts to specific insights through a clear hierarchy: Resources, Explorations, Micro-Explorations, and Luminations. Each interactive experience includes AI-driven conversations, reflective prompts, explorable sections, and contextual pause points where users can engage deeply before continuing.
+                </p>
+            </div>
+        </div>
+        
+        <div class="section-divider" style="animation-delay: 1.1s;"></div>
+        
+        <!-- For Explorers Section -->
+        <div class="section">
+            <h2 class="section-heading">For Explorers</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    Step into a world where knowledge comes alive through interaction. At Lumi Forge, you don't just read or watch. You actively engage with ideas, test your understanding, and build genuine insight through dynamic learning experiences.
+                </p>
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/how-this-works-5.webp" 
+                        alt="Interactive checkpoints in Explorations" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">Luminations create moments for reflection and growth.</p>
+                </div>
+                
+                <p class="section-text">
+                    Lumi Forge transforms every piece of content into an interactive journey that adapts to your curiosity and deepens your comprehension, whether you're diving into books, articles, essays, videos, courses, or training materials.
+                </p>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Active Learning, Not Passive Consumption</h3>
+                <p class="section-text">
+                    Lumi Forge reimagines how you engage with knowledge. Instead of passively scrolling through text or watching videos, you actively participate in your learning journey through:
+                </p>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>Human-Centered AI:</strong> Engage with content rather than passively trying to take it in. Find that spark of inspiration through thought-provoking discussions. Get answers to your questions, and explore ideas from multiple angles.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Reflective Prompts:</strong> Pause at strategic moments to check your understanding, apply new concepts, and internalize what you're learning through meaningful interaction.
+                    </li>
+                </ul>
+                
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/how-this-works-17.webp" 
+                        alt="Active learning through interaction" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">Learning Through Engagement: The Lumi Forge Interactive Timeline Module</p>
+                </div>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>Explorable Pathways:</strong> Navigate through content in ways that match your curiosity, diving deep into topics that interest you and creating your own unique learning journey.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Experience Points:</strong> Earn rewards for engagement, not just correct answers. Every interaction builds your understanding and progresses your learning journey.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section-divider" style="animation-delay: 1.3s;"></div>
+        
+        <!-- Micro-Explorations: Doom Scrolling for Good -->
+        <div class="section">
+            <h2 class="section-heading">Doom Scrolling for Good</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    What if the addictive rhythm of scrolling through your feed could build genuine knowledge instead of feeding rage and anxiety? Micro-Explorations transform those small moments in your day into opportunities for discovery and growth.
+                </p>
+                
+                <div class="image-caption-wrapper">
+                    <img 
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/illustrations/how-this-works-3.webp" 
+                        alt="Micro-Exploration feed experience" 
+                        class="section-image"
+                    />
+                    <p class="section-image-caption">A familiar interface for a transformative experience.</p>
+                </div>
+                
+                <p class="section-text">
+                    Instead of endless scrolling through content designed to provoke and divide, Micro-Explorations offer a swipeable feed of focused learning. Each card delivers a bite-sized insight, a thought-provoking question, or a moment of reflection. The familiar gesture of swiping becomes a pathway to understanding, replacing passive consumption with active exploration.
+                </p>
+                
+                <p class="section-text" style="font-weight: 500; color: var(--highlight-color); text-align: center; margin-top: 1.5rem;">
+                    Turn your scroll into discovery. Replace doom scrolling with learning that matters.
+                </p>
+            </div>
+        </div>
+        
+        <div class="section-divider" style="animation-delay: 1.5s;"></div>
+        
+        <!-- Mission & Vision Section -->
+        <div class="section">
+            <h2 class="section-heading">Sparking a Renaissance of Exploration</h2>
+            <div class="section-content mission-section">
+                <p class="mission-text">
+                    We're working toward a world where the fire of curiosity burns bright in everyone. Where creators can share their knowledge in ways that truly connect. Where explorers actively engage with ideas rather than passively receive them. Where the gap between exposure to information and genuine understanding finally closes.
+                </p>
+                <p class="mission-text">
+                    Through innovative technology and AI-powered interaction, we're sparking a renaissance of exploration and discovery. We're building a future where words don't just inform but transform, where ideas don't just reach people but genuinely change them.
+                </p>
+            </div>
+        </div>
+        
+        <div class="section-divider" style="animation-delay: 1.7s;"></div>
+        
+        <!-- Coming Soon Features -->
+        <div class="section">
+            <h2 class="section-heading">This is Just the Beginning</h2>
+            <div class="section-content">
+                <p class="section-text" style="text-align: center; margin-bottom: 2rem;">
+                    As Lumi Forge grows, we're building features that will revolutionize how creators and explorers connect:
+                </p>
+                
+                <div class="future-features">
+                    <div class="future-feature" style="animation-delay: 1.8s;">
+                        <div class="future-feature-title">Live Sessions</div>
+                        <div class="future-feature-text">Host real-time interactive sessions within your content, engaging directly with your audience as they explore your ideas.</div>
+                    </div>
+                    <div class="future-feature" style="animation-delay: 1.9s;">
+                        <div class="future-feature-title">Thriving Communities</div>
+                        <div class="future-feature-text">Foster vibrant communities around your work where learners connect, discuss, and grow together.</div>
+                    </div>
+                    <div class="future-feature" style="animation-delay: 2s;">
+                        <div class="future-feature-title">Creator Insights</div>
+                        <div class="future-feature-text">Gain deep insights into what truly engages your readers, which ideas spark the most discussion, and where your work creates genuine transformation.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider" style="animation-delay: 2.1s;"></div>
+        
+        <!-- Call to Action -->
+        <div class="cta-section" style="animation-delay: 2.2s;">
+            <h2 class="cta-heading">Join Our Mission</h2>
+            <p class="cta-text">
+                This mission is bigger than any platform. It's about fundamentally changing how humanity engages with knowledge and ideas. Whether you're a creator with words that deserve to be experienced or someone eager to explore ideas in a deeper way, you have a place in this mission.
+            </p>
+            <p class="cta-text" style="font-weight: 500; color: var(--highlight-color);">
+                Together, we're forging a brighter future, one transformative experience at a time. Join us in igniting the power of words and sparking the renaissance of exploration the world needs.
+            </p>
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 0, 0, 0.1);" class="cta-contact-divider">
+                <p class="cta-text" style="margin-bottom: 1rem; font-weight: 500;">Get in touch with us:</p>
+                <div style="font-size: clamp(0.95rem, 1.6vw, 1.05rem); line-height: 1.8; color: var(--text-color);">
+                    <span style="font-weight: 600; display: block; margin-bottom: 0.25rem;">Evan Marie Carr</span>
+                    <a href="mailto:evanmarie@darkviolet.ai" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">evanmarie@darkviolet.ai</a> • 
+                    <a href="tel:6785200677" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">678-520-0677</a> • 
+                    <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">darkviolet.ai</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+    
+    <footer class="footer">
+        <div class="footer-content">
+            <div>Copyright © 2025 <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer" class="footer-link">DarkViolet.ai LLC</a> All rights reserved.</div>
+        </div>
+    </footer>
+    
+    <script>
+        (function() {
+            // Get theme from localStorage or default to light
+            const storedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const initialTheme = storedTheme || 'light';
+            
+            // Apply initial theme
+            if (initialTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Update icon based on theme
+            // Show sun icon in dark mode (clicking will switch to light)
+            // Show moon icon in light mode (clicking will switch to dark)
+            function updateIcon(isDark) {
+                const icon = document.getElementById('theme-icon');
+                if (!icon) return;
+                
+                if (isDark) {
+                    // Sun icon - clicking will switch to light mode
+                    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                } else {
+                    // Moon icon - clicking will switch to dark mode
+                    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                }
+            }
+            
+            // Initialize icon
+            updateIcon(initialTheme === 'light');
+            
+            // Toggle theme function
+            function toggleTheme() {
+                const isDark = document.documentElement.classList.contains('dark');
+                const newTheme = isDark ? 'light' : 'dark';
+                
+                if (newTheme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                
+                localStorage.setItem('theme', newTheme);
+                updateIcon(newTheme === 'dark');
+            }
+            
+            // Add click listener
+            const toggleButton = document.getElementById('theme-toggle');
+            if (toggleButton) {
+                toggleButton.addEventListener('click', toggleTheme);
+            }
+        })();
+    </script>
+</body>
+</html>
