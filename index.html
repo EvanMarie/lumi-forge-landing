@@ -763,8 +763,54 @@
             }
         }
         
-        /* Large screens and HD */
-        @media (min-width: 1920px) {
+        /* XL screens and above - slightly narrower content */
+        @media (min-width: 1280px) {
+            .section {
+                max-width: 900px;
+            }
+            .section-divider {
+                max-width: 900px;
+            }
+            .description {
+                max-width: 750px;
+            }
+            .cta-section {
+                max-width: 750px;
+            }
+            .mission-section {
+                max-width: 850px;
+            }
+            .future-features {
+                max-width: 850px;
+            }
+        }
+        
+        /* 2XL screens and above - 50% width for ultra HD scaling */
+        @media (min-width: 1536px) {
+            .section {
+                max-width: none;
+                width: 50%;
+            }
+            .section-divider {
+                max-width: none;
+                width: 50%;
+            }
+            .description {
+                max-width: none;
+                width: 50%;
+            }
+            .cta-section {
+                max-width: none;
+                width: 50%;
+            }
+            .mission-section {
+                max-width: none;
+                width: 50%;
+            }
+            .future-features {
+                max-width: none;
+                width: 50%;
+            }
             .logo {
                 height: clamp(120px, 15vh, 200px);
             }
