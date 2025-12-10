@@ -315,6 +315,34 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
+        .video-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            max-height: 70svh;
+            max-width: 70svh;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: box-shadow 0.5s ease, border-color 0.5s ease;
+        }
+        
+        html:not(.dark) .video-container {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        html.dark .video-container {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
         .section-image-caption {
             font-size: clamp(0.875rem, 1.5vw, 1rem);
             color: var(--secondary-text);
@@ -756,6 +784,9 @@
                 padding: 1.5rem;
                 margin: 2rem auto;
             }
+            .video-wrapper {
+                max-width: 95% !important;
+            }
         }
         
         /* Tablets and small laptops */
@@ -781,6 +812,9 @@
             }
             .cta-section {
                 max-width: 750px;
+            }
+            .video-wrapper {
+                max-width: 60%;
             }
             .mission-section {
                 max-width: 100%;
@@ -811,6 +845,10 @@
             .cta-section {
                 max-width: none;
                 width: 50%;
+            }
+            .video-wrapper {
+                max-width: none;
+                width: 60%;
             }
             .mission-section {
                 max-width: 100%;
@@ -849,6 +887,16 @@
         <p class="description">
             Lumi Forge transforms books, articles, videos, and courses into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
         </p>
+        
+        <div class="image-caption-wrapper video-wrapper" style="max-width: 80%; margin: 2rem auto; animation: fadeInUp 0.8s ease-out 0.7s backwards;">
+            <div class="video-container">
+                <video
+                    src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/landing/videos/lumi-forge-io.mov"
+                    controls
+                    style="display: block;"
+                ></video>
+            </div>
+        </div>
         
         <div class="creator-contact">
             <div style="margin-bottom: 0.75rem;">If you are interested in being a Lumi Forge creator, get in touch with us:</div>
