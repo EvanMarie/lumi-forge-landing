@@ -20,6 +20,38 @@
             --secondary-text: #7C3573; /* burgundy-600 */
             --overlay-color: rgba(228, 230, 232, 0.6);
             --toggle-bg: rgba(228, 230, 232, 0.8);
+            
+            /* Typography System - matching app/styles/typography.css */
+            --text-default-size: 1rem;
+            --text-scale-factor: 1;
+            
+            /* Text size ratios */
+            --text-lg-ratio: 1.222;
+            --text-xl-ratio: 1.333;
+            --text-2xl-ratio: 1.444;
+            --text-3xl-ratio: 1.556;
+            --text-4xl-ratio: 1.667;
+            --text-5xl-ratio: 1.778;
+            --text-6xl-ratio: 1.889;
+            --text-7xl-ratio: 2;
+            --text-8xl-ratio: 2.111;
+            --text-9xl-ratio: 2.222;
+            --text-10xl-ratio: 2.333;
+            --text-11xl-ratio: 2.444;
+            --text-12xl-ratio: 2.556;
+            --text-13xl-ratio: 2.667;
+            --text-14xl-ratio: 2.778;
+            --text-15xl-ratio: 2.889;
+            --text-16xl-ratio: 3;
+            
+            /* Heading ratios */
+            --h1-ratio: 2.5;
+            --h2-ratio: 1.944;
+            --h3-ratio: 1.667;
+            --h4-ratio: 1.389;
+            --h5-ratio: 1.25;
+            --h6-ratio: 1.111;
+            --p-ratio: 1.111;
         }
 
         .dark {
@@ -34,6 +66,15 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
         
         /* Custom Scrollbar Styling */
         /* Webkit browsers (Chrome, Safari, Edge) */
@@ -70,26 +111,46 @@
             color: var(--text-color);
             min-height: 100vh;
             min-height: 100svh;
-            width: 100vw;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
             transition: background-color 0.5s ease, color 0.5s ease;
             overflow-x: hidden;
+            box-sizing: border-box;
         }
 
         /* Backgrounds */
         .bg-container {
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100vh;
+            height: 100svh;
             z-index: 0;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
         }
         .bg-image {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             transition: background-image 0.5s ease;
+            box-sizing: border-box;
         }
         
         html:not(.dark) .bg-image {
@@ -102,14 +163,19 @@
         
         .bg-overlay {
             position: absolute;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
             backdrop-filter: blur(0.3em);
             -webkit-backdrop-filter: blur(0.3em);
             transition: background 0.5s ease;
+            box-sizing: border-box;
         }
         
         html:not(.dark) .bg-overlay {
-            background: linear-gradient(to right, rgba(252, 231, 243, 0.2), rgba(240, 253, 250, 0.5), rgba(252, 231, 243, 0.2));
+            background: linear-gradient(to right, rgba(252, 231, 243, 0.2), rgba(240, 253, 250, 0.5), rgba(252, 231, 243, 0.3));
         }
         
         html.dark .bg-overlay {
@@ -125,31 +191,86 @@
             align-items: center;
             justify-content: flex-start;
             width: 100%;
-            padding: 2rem;
-            padding-top: clamp(2rem, 5vh, 6rem);
+            max-width: 100%;
+            margin: 0;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-top: 2rem;
             padding-bottom: 2rem;
             text-align: center;
+            box-sizing: border-box;
+            
+        }
+        
+        @media (min-width: 1280px) {
+            .main-content {
+                padding-top: 3rem;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .main-content {
+                padding: 3rem;
+            }
+        }
+        
+        /* Content wrapper after logo */
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            width: 100%;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 0;
+            box-sizing: border-box;
+      
+           
         }
         
         /* Logo and Brand Name Container */
         .logo-brand-container {
             position: relative;
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 auto;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 0.8rem;
             animation: fadeIn 1s ease-out;
+            width: fit-content;
+            max-width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .logo-brand-container {
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 1.5rem;
+            }
         }
         
         .logo {
-            position: absolute;
-            right: 100%;
-            height: clamp(80px, 12vh, 160px);
+            position: relative;
+            height: 25vh;
+            min-height: 120px;
+            max-height: 160px;
             width: auto;
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.3));
-            margin-right: clamp(1rem, 3vw, 2.5rem);
+            margin: 0;
             animation: fadeIn 2s ease-out 0.2s backwards;
+        }
+        
+        @media (min-width: 768px) {
+            .logo {
+                height: 18vh;
+                min-height: 150px;
+                max-height: none;
+            }
         }
         
         .text-container {
@@ -157,39 +278,64 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            margin: 0;
+            padding: 0;
+            width: 100%;
         }
         
         .brand-name {
             font-family: "Merriweather", serif;
             font-weight: 700;
-            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-size: calc(var(--text-default-size) * 3.67 * var(--text-scale-factor));
             color: var(--highlight-color);
             text-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            margin: 0;
+            margin: 0 auto;
             line-height: 1;
             letter-spacing: -0.02em;
             animation: slideUp 1s ease-out 0.2s backwards;
             transition: color 0.5s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .brand-name {
+                font-size: 8.2vh;
+            }
+                
         }
         
         .subtitle {
-            font-size: clamp(2rem, 3vw, 2rem);
+            font-size: calc(var(--text-default-size) * 2 * var(--text-scale-factor));
             color: var(--secondary-text);
             margin-top: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
             font-weight: 300;
             animation: slideUp 1s ease-out 0.4s backwards;
             transition: color 0.5s ease;
+            text-align: center;
+            width: 100%;
+        }
+        
+        @media (min-width: 768px) {
+            .subtitle {
+                font-size: 3.7vh;
+            }
         }
         
         .description {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: calc(var(--text-default-size) * 1.25 * var(--text-scale-factor));
             color: var(--text-color);
-            margin-top: clamp(2rem, 4vh, 3rem);
-            margin-bottom: clamp(1.5rem, 2vh, 2rem);
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+            margin-left: auto;
+            margin-right: auto;
             max-width: 800px;
+            width: 100%;
             line-height: 1.6;
             font-weight: 300;
-            padding: clamp(1.5rem, 3vh, 2rem);
+            padding: 1.5rem;
             border-radius: 0.75rem;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -198,6 +344,22 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             animation: slideUp 1s ease-out 0.6s backwards;
             transition: color 0.5s ease, background 0.5s ease, border-color 0.5s ease;
+            box-sizing: border-box;
+            text-align: center;
+            display: block;
+        }
+        
+        @media (min-width: 1280px) {
+            .description {
+                max-width: 750px;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .description {
+                max-width: 60%;
+                width: 60%;
+            }
         }
         
         html:not(.dark) .description {
@@ -217,23 +379,59 @@
             position: relative;
             z-index: 10;
             width: 100%;
-            padding: clamp(2rem, 3vh, 3rem) 2rem;
-            padding-top: clamp(1.5rem, 2vh, 2rem);
-            padding-bottom: clamp(8rem, 12vh, 10rem);
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 2rem;
+            padding-top: 1.5rem;
+            padding-bottom: 8rem;
             display: flex;
             flex-direction: column;
-            gap: clamp(3rem, 6vh, 5rem);
+            gap: 3rem;
             align-items: center;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 1280px) {
+            .content-sections {
+                padding: 3rem 2rem;
+                padding-top: 2rem;
+                padding-bottom: 10rem;
+                gap: 4rem;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .content-sections {
+                padding: 4rem 3rem;
+                padding-top: 2rem;
+                padding-bottom: 12rem;
+                gap: 5rem;
+            }
         }
         
         .section {
             width: 100%;
             max-width: 1000px;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 2rem;
             animation: fadeInUp 0.8s ease-out backwards;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 1280px) {
+            .section {
+                max-width: 900px;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .section {
+                max-width: 60%;
+                width: 60%;
+            }
         }
         
         .section:nth-child(1) {
@@ -246,7 +444,7 @@
         
         .section-heading {
             font-family: "Merriweather", serif;
-            font-size: clamp(2rem, 4vw, 3rem);
+            font-size: calc(var(--text-default-size) * var(--h2-ratio) * var(--text-scale-factor));
             font-weight: 700;
             color: var(--highlight-color);
             text-align: center;
@@ -268,7 +466,11 @@
             flex-direction: column;
             gap: 1.5rem;
             width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            align-items: center;
             animation: fadeInUp 0.8s ease-out backwards;
+            box-sizing: border-box;
         }
         
         .section:nth-child(1) .section-content {
@@ -280,10 +482,13 @@
         }
         
         .section-text {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: calc(var(--text-default-size) * var(--p-ratio) * var(--text-scale-factor));
             line-height: 1.6;
             color: var(--text-color);
             transition: color 0.5s ease;
+            text-align: center;
+            width: 100%;
+            max-width: 100%;
         }
         
         .image-caption-wrapper {
@@ -294,6 +499,57 @@
             max-width: 700px;
             width: 100%;
             animation: fadeInUp 0.8s ease-out backwards;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 1280px) {
+            .image-caption-wrapper {
+                max-width: 800px;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .image-caption-wrapper {
+                max-width: 900px;
+            }
+        }
+        
+        @media (min-width: 1920px) {
+            .image-caption-wrapper {
+                max-width: 1000px;
+            }
+        }
+        
+        @media (min-width: 2560px) {
+            .image-caption-wrapper {
+                max-width: 1200px;
+            }
+        }
+        
+        @media (min-width: 3840px) {
+            .image-caption-wrapper {
+                max-width: 1400px;
+            }
+        }
+        
+        .video-wrapper {
+            margin: 2rem auto !important;
+            max-width: 80% !important;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 1280px) {
+            .video-wrapper {
+                max-width: 60% !important;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .video-wrapper {
+                max-width: none !important;
+                width: 60% !important;
+            }
         }
         
         .section-image {
@@ -344,7 +600,7 @@
         }
         
         .section-image-caption {
-            font-size: clamp(0.875rem, 1.5vw, 1rem);
+            font-size: calc(var(--text-default-size) * 0.972 * var(--text-scale-factor));
             color: var(--secondary-text);
             text-align: center;
             font-style: italic;
@@ -372,7 +628,7 @@
         }
         
         .feature-item {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: calc(var(--text-default-size) * var(--p-ratio) * var(--text-scale-factor));
             line-height: 1.6;
             color: var(--text-color);
             padding-left: 1.5rem;
@@ -394,7 +650,7 @@
             width: 100%;
             max-width: 1000px;
             height: 1px;
-            margin:  auto;
+            margin: 0 auto;
             background: linear-gradient(to right, 
                 transparent, 
                 var(--secondary-text), 
@@ -427,10 +683,10 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            margin: 2rem 0;
+            margin: 2rem auto;
             padding: 1.5rem;
             border-radius: 2rem;
-            font-size: clamp(1.1rem, 2.1vw, 1.2rem);
+            font-size: calc(var(--text-default-size) * 1.222 * var(--text-scale-factor));
             font-weight: 400;
             color: var(--text-color);
             animation: fadeInUp 0.8s ease-out backwards;
@@ -438,6 +694,9 @@
             transition: all 0.5s ease;
             text-align: center;
             line-height: 1.6;
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
         }
         
         html:not(.dark) .creator-contact {
@@ -481,7 +740,7 @@
         }
         
         .mission-text {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: calc(var(--text-default-size) * var(--p-ratio) * var(--text-scale-factor));
             line-height: 1.6;
             color: var(--text-color);
             transition: color 0.5s ease;
@@ -524,7 +783,7 @@
         
         .future-feature-title {
             font-family: "Merriweather", serif;
-            font-size: clamp(1.125rem, 2vw, 1.25rem);
+            font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
             font-weight: 600;
             color: var(--highlight-color);
             margin-bottom: 0.5rem;
@@ -532,7 +791,7 @@
         }
         
         .future-feature-text {
-            font-size: clamp(0.9rem, 1.5vw, 1rem);
+            font-size: calc(var(--text-default-size) * var(--text-default-ratio) * var(--text-scale-factor));
             line-height: 1.6;
             color: var(--text-color);
             transition: color 0.5s ease;
@@ -543,7 +802,7 @@
             text-align: center;
             max-width: 800px;
             margin: 3rem auto;
-            padding: clamp(2rem, 4vh, 3rem);
+            padding: 2rem;
             border-radius: 1rem;
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
@@ -574,7 +833,7 @@
         
         .cta-heading {
             font-family: "Merriweather", serif;
-            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-size: calc(var(--text-default-size) * var(--h2-ratio) * var(--text-scale-factor));
             font-weight: 700;
             color: var(--highlight-color);
             margin-bottom: 1rem;
@@ -582,7 +841,7 @@
         }
         
         .cta-text {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
+            font-size: calc(var(--text-default-size) * var(--p-ratio) * var(--text-scale-factor));
             line-height: 1.6;
             color: var(--text-color);
             margin-bottom: 1.5rem;
@@ -623,7 +882,7 @@
         }
         
         .content-types-intro {
-            font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+            font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
             color: var(--text-color);
             margin: 0;
             transition: color 0.5s ease;
@@ -631,7 +890,7 @@
         
         .content-type-tag {
             display: inline-block;
-            font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+            font-size: calc(var(--text-default-size) * var(--text-default-ratio) * var(--text-scale-factor));
             color: var(--highlight-color);
             font-weight: 500;
             transition: color 0.5s ease;
@@ -653,6 +912,7 @@
             justify-content: center;
             align-items: center;
             padding: 0.2rem 2rem;
+            background: rgba(255, 255, 255, 0.3);
             backdrop-filter: blur(0.5em);
             -webkit-backdrop-filter: blur(0.5em);
         }
@@ -694,7 +954,7 @@
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
-            font-size: clamp(0.75rem, 1.25vw, 0.75rem);
+            font-size: calc(var(--text-default-size) * 0.833 * var(--text-scale-factor));
             color: var(--text-color);
             transition: color 0.5s ease;
         }
@@ -732,6 +992,77 @@
             } 
         }
 
+        /* Responsive Breakpoints - Update --text-default-size */
+        /* SM Screen (640px) */
+        @media (min-width: 640px) {
+            :root {
+                --text-default-size: 1rem;
+            }
+        }
+        
+        /* MD Screen (768px) */
+        @media (min-width: 768px) {
+            :root {
+                --text-default-size: 1rem;
+            }
+        }
+        
+        /* LG Screen (1024px) */
+        @media (min-width: 1024px) {
+            :root {
+                --text-default-size: 1rem;
+            }
+        }
+        
+        /* XL Screen (1280px) */
+        @media (min-width: 1280px) {
+            :root {
+                --text-default-size: 1rem;
+            }
+        }
+        
+        /* 2XL Screen (1536px) */
+        @media (min-width: 1536px) {
+            :root {
+                --text-default-size: 1.1rem;
+            }
+        }
+        
+        /* 3XL Screen (1920px) */
+        @media (min-width: 1920px) {
+            :root {
+                --text-default-size: 1.1rem;
+            }
+        }
+        
+        /* 4XL Screen (2240px) */
+        @media (min-width: 2240px) {
+            :root {
+                --text-default-size: 1.1rem;
+            }
+        }
+        
+        /* 5XL Screen (2560px) */
+        @media (min-width: 2560px) {
+            :root {
+                --text-default-size: 1.3rem;
+            }
+        }
+        
+        /* 6XL Screen (2880px) */
+        @media (min-width: 2880px) {
+            :root {
+                --text-default-size: 1.6rem;
+            }
+        }
+        
+        /* 7XL Screen (3840px) */
+        @media (min-width: 3840px) {
+            :root {
+                --text-default-size: 2.1rem;
+            }
+        }
+        
         /* Responsive */
         /* Small phones */
         @media (max-width: 480px) {
@@ -740,20 +1071,15 @@
                 align-items: center;
             }
             .logo {
-                position: relative !important;
-                right: auto !important;
-                left: auto !important;
-                margin-right: 0 !important;
                 margin-bottom: 1rem;
-                animation: fadeIn 1s ease-out 0.2s backwards;
             }
             .main-content {
                 padding: 1rem;
-                padding-top: clamp(1.5rem, 4vh, 4rem);
+                padding-top: 1.5rem;
             }
             .content-sections {
-                padding: clamp(2rem, 5vh, 4rem) 1rem;
-                padding-bottom: clamp(6rem, 10vh, 8rem);
+                padding: 2rem 1rem;
+                padding-bottom: 6rem;
             }
             .section {
                 gap: 1.5rem;
@@ -762,7 +1088,7 @@
                 padding: 1rem;
             }
             .footer-content {
-                font-size: 0.75rem;
+                font-size: calc(var(--text-default-size) * 0.75);
                 text-align: center;
             }
             .theme-toggle {
@@ -795,10 +1121,24 @@
                 padding: 2.5rem;
             }
             .content-sections {
-                padding: clamp(3rem, 6vh, 5rem) 2.5rem;
+                padding: 3rem 2.5rem;
             }
         }
-        
+
+        @media (min-width: 1024px) and (max-width: 1280px) {
+               .logo {
+                height: 24vh;
+                min-height: 150px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 11vh;
+            }
+            .subtitle {
+                font-size: 5vh;
+            }
+        }
+
         /* XL screens and above - slightly narrower content */
         @media (min-width: 1280px) {
             .section {
@@ -825,6 +1165,53 @@
                 width: 75%;
                 margin-left: auto;
                 margin-right: auto;
+            }
+            .logo {
+                height: 33vh;
+                min-height: 160px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 13vh;
+            }
+            .subtitle {
+                font-size: 6vh;
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * var(--h1-ratio) * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-default-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * var(--h2-ratio) * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-default-ratio) * var(--text-scale-factor));
+            }
+            .image-caption-wrapper {
+                max-width: 800px;
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
             }
         }
         
@@ -861,10 +1248,299 @@
                 margin-right: auto;
             }
             .logo {
-                height: clamp(120px, 15vh, 200px);
+                height: 30vh;
+                min-height: 200px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 13.9vh;
+            }
+            .subtitle {
+                font-size: 5.5vh;
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 2.73 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 2.73 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .image-caption-wrapper {
+                max-width: 900px;
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
             }
             .main-content {
                 padding: 3rem;
+            }
+        }
+        
+        /* 3XL screens - 4K displays */
+        @media (min-width: 1920px) {
+            .logo {
+                height: 25vh;
+                min-height: 200px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: calc(25vh * 0.4);
+            }
+            .subtitle {
+                font-size: calc(25vh * 0.2);
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 3.18 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 3.18 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-4xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+        }
+        
+        /* 4XL screens - 5K and ultra-wide displays */
+        @media (min-width: 2240px) {
+            .logo {
+                height: 25vh;
+                min-height: 280px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: calc(25vh * 0.4);
+            }
+            .subtitle {
+                font-size: calc(25vh * 0.2);
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 3.41 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 3.41 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-4xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+        }
+        
+        /* 5XL screens - 8K and larger displays */
+        @media (min-width: 2560px) {
+            .logo {
+                height: 26vh;
+                min-height: 280px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 13vh;
+            }
+            .subtitle {
+                font-size: calc(25vh * 0.2);
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 2.88 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 2.88 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+        }
+        
+        /* 6XL screens - Ultra-wide displays */
+        @media (min-width: 2880px) {
+            .logo {
+                height: 28vh;
+                min-height: 320px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 13vh;
+            }
+            .subtitle {
+                font-size: 5.75vh;
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 2.81 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+                padding-left: 2.5rem;
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 2.81 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+        }
+        
+        /* 7XL screens - 8K displays */
+        @media (min-width: 3840px) {
+            .logo {
+                height: 28vh;
+                min-height: 320px;
+                max-height: none;
+            }
+            .brand-name {
+                font-size: 13vh;
+            }
+            .subtitle {
+                font-size: 5.75vh;
+            }
+            .section-heading {
+                font-size: calc(var(--text-default-size) * 2.38 * var(--text-scale-factor));
+            }
+            .section-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .feature-item {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+                padding-left: 3rem;
+            }
+            .mission-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-title {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .future-feature-text {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .cta-heading {
+                font-size: calc(var(--text-default-size) * 2.38 * var(--text-scale-factor));
+            }
+            .cta-text {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
+            }
+            .content-types-intro {
+                font-size: calc(var(--text-default-size) * var(--text-3xl-ratio) * var(--text-scale-factor));
+            }
+            .section-image-caption {
+                font-size: calc(var(--text-default-size) * var(--text-lg-ratio) * var(--text-scale-factor));
+            }
+            .creator-contact {
+                font-size: calc(var(--text-default-size) * var(--text-2xl-ratio) * var(--text-scale-factor));
+            }
+            .description {
+                font-size: calc(var(--text-default-size) * var(--text-xl-ratio) * var(--text-scale-factor));
             }
         }
     </style>
@@ -884,28 +1560,30 @@
             </div>
         </div>
         
-        <p class="description">
-            Lumi Forge transforms books, articles, videos, and courses into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
-        </p>
-        
-        <div class="image-caption-wrapper video-wrapper" style="max-width: 80%; margin: 2rem auto; animation: fadeInUp 0.8s ease-out 0.7s backwards;">
-            <div class="video-container">
-                <video
-                    src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/landing/videos/lumi-forge-io.mov"
-                    controls
-                    style="display: block;"
-                ></video>
+        <div class="content-wrapper">
+            <p class="description">
+                Lumi Forge transforms books, articles, videos, and courses into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
+            </p>
+            
+            <div class="image-caption-wrapper video-wrapper" style="animation: fadeInUp 0.8s ease-out 0.7s backwards;">
+                <div class="video-container">
+                    <video
+                        src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/landing/videos/lumi-forge-io.mov"
+                        controls
+                        style="display: block;"
+                    ></video>
+                </div>
             </div>
-        </div>
-        
-        <div class="creator-contact">
-            <div style="margin-bottom: 0.75rem;">If you are interested in being a Lumi Forge creator, get in touch with us:</div>
-            <span class="creator-contact-name">Evan Marie Carr</span>
-            <div class="creator-contact-info">
-                
-                <a href="mailto:evanmarie@darkviolet.ai">evanmarie@darkviolet.ai</a> • 
-                <a href="tel:6785200677">678-520-0677</a> • 
-                <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer">darkviolet.ai</a>
+            
+            <div class="creator-contact">
+                <div style="margin-bottom: 0.75rem;">If you are interested in being a Lumi Forge creator, get in touch with us:</div>
+                <span class="creator-contact-name">Evan Marie Carr</span>
+                <div class="creator-contact-info">
+                    
+                    <a href="mailto:evanmarie@darkviolet.ai">evanmarie@darkviolet.ai</a> • 
+                    <a href="tel:6785200677">678-520-0677</a> • 
+                    <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer">darkviolet.ai</a>
+                </div>
             </div>
         </div>
     </div>
@@ -936,7 +1614,7 @@
                     <p class="section-image-caption">The Lumi Forge Creator Library</p>
                 </div>
                 
-                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Flexibility to Create</h3>
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Flexibility to Create</h3>
                 <p class="section-text">
                     As a creator on Lumi Forge, you have multiple powerful paths to bring your vision to life:
                 </p>
@@ -961,7 +1639,7 @@
                     </li>
                 </ul>
                 
-                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">AI-Powered Creation Tools</h3>
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">AI-Powered Creation Tools</h3>
                 <p class="section-text">
                     Lumi Forge harnesses AI to accelerate your creation process. Whether you have a polished PDF ready to transform or just a collection of ideas, our tools meet you where you are.
                 </p>
@@ -993,7 +1671,7 @@
                     <p class="section-image-caption">Transform static documents into interactive learning experiences.</p>
                 </div>
                 
-                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Your Rights & Protections</h3>
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Your Rights & Protections</h3>
                 <p class="section-text">
                     Your content belongs to you. Whether we build your interactive experience for you or you create it yourself using the Creator Studio, your intellectual property remains yours.
                 </p>
@@ -1013,7 +1691,7 @@
                     </li>
                 </ul>
                 
-                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">The Ecosystem & Experience</h3>
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">The Ecosystem & Experience</h3>
                 <p class="section-text">
                     The Lumi Forge ecosystem guides learners from broad concepts to specific insights through a clear hierarchy: Resources, Explorations, Micro-Explorations, and Luminations. Each interactive experience includes AI-driven conversations, reflective prompts, explorable sections, and contextual pause points where users can engage deeply before continuing.
                 </p>
@@ -1042,7 +1720,7 @@
                     Lumi Forge transforms every piece of content into an interactive journey that adapts to your curiosity and deepens your comprehension, whether you're diving into books, articles, essays, videos, courses, or training materials.
                 </p>
                 
-                <h3 style="font-family: 'Merriweather', serif; font-size: clamp(1.5rem, 3vw, 2rem); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Active Learning, Not Passive Consumption</h3>
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Active Learning, Not Passive Consumption</h3>
                 <p class="section-text">
                     Lumi Forge reimagines how you engage with knowledge. Instead of passively scrolling through text or watching videos, you actively participate in your learning journey through:
                 </p>
@@ -1160,7 +1838,7 @@
             </p>
             <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(0, 0, 0, 0.1);" class="cta-contact-divider">
                 <p class="cta-text" style="margin-bottom: 1rem; font-weight: 500;">Get in touch with us:</p>
-                <div style="font-size: clamp(0.95rem, 1.6vw, 1.05rem); line-height: 1.8; color: var(--text-color);">
+                <div style="font-size: calc(var(--text-default-size) * var(--text-default-ratio) * var(--text-scale-factor)); line-height: 1.8; color: var(--text-color);">
                     <span style="font-weight: 600; display: block; margin-bottom: 0.25rem;">Evan Marie Carr</span>
                     <a href="mailto:evanmarie@darkviolet.ai" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">evanmarie@darkviolet.ai</a> • 
                     <a href="tel:6785200677" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">678-520-0677</a> • 
