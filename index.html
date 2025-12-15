@@ -16,6 +16,7 @@
             --bg-color: #e4e6e8; /* steel-200 */
             --text-color: #273345; /* steel-800 */
             --highlight-color: #0e7490; /* cyan-700 */
+            --highlight-secondary-color: #7C3573; /* burgundy-600 */
             --calm-highlight-color:rgba(19, 121, 155, 0.2); /* cyan-300 */
             --secondary-text: #7C3573; /* burgundy-600 */
             --overlay-color: rgba(228, 230, 232, 0.6);
@@ -59,6 +60,7 @@
             --bg-color: #273345; /* steel-800 */
             --text-color: #e4e6e8; /* steel-200 */
             --highlight-color: #67e8f9; /* cyan-300 */
+            --highlight-secondary-color: #f4a9ca; /* burgundy-300 */
             --calm-highlight-color:rgba(234, 190, 248, 0.2); /* cyan-300 */
             --secondary-text: #f9cde2; /* burgundy-200 */
             --overlay-color: rgba(39, 51, 69, 0.6);
@@ -162,6 +164,7 @@
             background-image: url('https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/background-dark-mode2.webp');
                       animation: fadeIn 1s ease-out;
         }
+
         
         .bg-overlay {
             position: absolute;
@@ -184,6 +187,20 @@
             background: linear-gradient(to right, rgba(48, 8, 42, 0.5), rgba(39, 51, 69, 0.5), rgba(48, 8, 42, 0.2));
             backdrop-filter: blur(0.5em);
             -webkit-backdrop-filter: blur(0.5em);
+        }
+
+        .lumi-forge-text {
+            font-family: "Merriweather", serif;
+            font-weight: 600;
+            color: var(--highlight-secondary-color);
+            font-size: inherit;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            margin: 0 auto;
+            line-height: 1;
+        }
+
+        .lumi-forge-text:not(.dark) {
+        text-shadow: 0 4px 12px rgba(255,255,255,0.5);
         }
 
         /* Content */
@@ -300,6 +317,10 @@
             transition: color 0.5s ease;
             text-align: center;
             width: 100%;
+        }
+
+        .brand-name:not(.dark) .h1:not(.dark) .h2:not(.dark) .h3:not(.dark) .h4:not(.dark) .h5:not(.dark) .h6:not(.dark) {
+        text-shadow: 0 4px 12px rgba(255,255,255,0.5);
         }
         
         @media (min-width: 768px) {
@@ -1547,7 +1568,7 @@
         
         <div class="content-wrapper">
             <p class="description">
-                Lumi Forge transforms books, articles, videos, and courses into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
+                <span class="lumi-forge-text">Lumi Forge</span> transforms books, articles, workforce traning materials, videos and their transcripts, professional development content, courses and so much more into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
             </p>
             
             <div class="image-caption-wrapper video-wrapper" style="animation: fadeInUp 0.8s ease-out 0.7s backwards;">
@@ -1561,7 +1582,7 @@
             </div>
 
             <div class="creator-contact">
-                <div style="margin-bottom: 0.75rem;">If you are interested in being a Lumi Forge creator, get in touch with us:</div>
+                <div style="margin-bottom: 0.75rem;">If you are interested in being a <span class="lumi-forge-text">Lumi Forge</span> creator, get in touch with us:</div>
                 <span class="creator-contact-name">Evan Marie Carr</span>
                 <div class="creator-contact-info">
                     
@@ -1581,7 +1602,7 @@
             <h2 class="section-heading">For Creators</h2>
             <div class="section-content">
                 <p class="section-text">
-                    Transform your written or spoken words into interactive journeys that captivate your audience. Lumi Forge ignites the power of your words and turns them into dynamic, AI-powered experiences.
+                    Transform your written or spoken words into interactive journeys that captivate your audience. <span class="lumi-forge-text">Lumi Forge</span> ignites the power of your words and turns them into dynamic, AI-powered experiences.
                 </p>
                 
                 <div class="content-types-highlight" style="animation-delay: 0.9s;">
@@ -1596,12 +1617,12 @@
                         alt="The Lumi Forge Creator Library" 
                         class="section-image"
                     />
-                    <p class="section-image-caption">The Lumi Forge Creator Library</p>
+                    <p class="section-image-caption">The <span class="lumi-forge-text">Lumi Forge</span> Creator Library</p>
                 </div>
                 
                 <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Flexibility to Create</h3>
                 <p class="section-text">
-                    As a creator on Lumi Forge, you have multiple powerful paths to bring your vision to life:
+                    As a creator on <span class="lumi-forge-text">Lumi Forge</span>, you have multiple powerful paths to bring your vision to life:
                 </p>
                 <div class="image-caption-wrapper">
                     <img 
@@ -1617,7 +1638,7 @@
                         <strong>The Creator Studio (Self-Service):</strong> Use our suite of tools to build and maintain your spaces yourself. Write manually in our Content Forge editor, or leverage our AI to transform your ideas into polished Resources, Explorations, and Luminations.
                     </li>
                     <li class="feature-item">
-                        <strong>Full-Service Transformation:</strong> Let our development team handle everything. Simply describe how you want explorers to engage with your work, and we'll bring that vision to life using Lumi Forge's proprietary framework.
+                        <strong>Full-Service Transformation:</strong> Let our development team handle everything. Simply describe how you want explorers to engage with your work, and we'll bring that vision to life using <span class="lumi-forge-text">Lumi Forge's </span>proprietary framework.
                     </li>
                     <li class="feature-item">
                         <strong>Hybrid Approach:</strong> Combine our tools with our development team's expertise. Our methods are as unique as our creators.
@@ -1626,7 +1647,7 @@
                 
                 <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">AI-Powered Creation Tools</h3>
                 <p class="section-text">
-                    Lumi Forge harnesses AI to accelerate your creation process. Whether you have a polished PDF ready to transform or just a collection of ideas, our tools meet you where you are.
+                    <span class="lumi-forge-text">Lumi Forge</span> harnesses AI to accelerate your creation process. Whether you have a polished PDF ready to transform or just a collection of ideas, our tools meet you where you are.
                 </p>
                 
                 <ul class="feature-list">
@@ -1678,7 +1699,7 @@
                 
                 <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">The Ecosystem & Experience</h3>
                 <p class="section-text">
-                    The Lumi Forge ecosystem guides learners from broad concepts to specific insights through a clear hierarchy: Resources, Explorations, Micro-Explorations, and Luminations. Each interactive experience includes AI-driven conversations, reflective prompts, explorable sections, and contextual pause points where users can engage deeply before continuing.
+                    The <span class="lumi-forge-text">Lumi Forge</span> ecosystem guides learners from broad concepts to specific insights through a clear hierarchy: Resources, Explorations, Micro-Explorations, and Luminations. Each interactive experience includes AI-driven conversations, reflective prompts, explorable sections, and contextual pause points where users can engage deeply before continuing.
                 </p>
             </div>
         </div>
@@ -1690,7 +1711,7 @@
             <h2 class="section-heading">For Explorers</h2>
             <div class="section-content">
                 <p class="section-text">
-                    Step into a world where knowledge comes alive through interaction. At Lumi Forge, you don't just read or watch. You actively engage with ideas, test your understanding, and build genuine insight through dynamic learning experiences.
+                    Step into a world where knowledge comes alive through interaction. At <span class="lumi-forge-text">Lumi Forge</span>, you don't just read or watch. You actively engage with ideas, test your understanding, and build genuine insight through dynamic learning experiences.
                 </p>
                 <div class="image-caption-wrapper">
                     <img 
@@ -1702,12 +1723,12 @@
                 </div>
                 
                 <p class="section-text">
-                    Lumi Forge transforms every piece of content into an interactive journey that adapts to your curiosity and deepens your comprehension, whether you're diving into books, articles, essays, videos, courses, or training materials.
+                    <span class="lumi-forge-text">Lumi Forge</span> transforms every piece of content into an interactive journey that adapts to your curiosity and deepens your comprehension, whether you're diving into books, articles, essays, videos, courses, or training materials.
                 </p>
                 
                 <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Active Learning, Not Passive Consumption</h3>
                 <p class="section-text">
-                    Lumi Forge reimagines how you engage with knowledge. Instead of passively scrolling through text or watching videos, you actively participate in your learning journey through:
+                    <span class="lumi-forge-text">Lumi Forge</span> reimagines how you engage with knowledge. Instead of passively scrolling through text or watching videos, you actively participate in your learning journey through:
                 </p>
                 
                 <ul class="feature-list">
@@ -1725,7 +1746,7 @@
                         alt="Active learning through interaction" 
                         class="section-image"
                     />
-                    <p class="section-image-caption">Learning Through Engagement: The Lumi Forge Interactive Timeline Module</p>
+                    <p class="section-image-caption">Learning Through Engagement: The <span class="lumi-forge-text">Lumi Forge</span> Interactive Timeline Module</p>
                 </div>
                 
                 <ul class="feature-list">
@@ -1790,7 +1811,7 @@
             <h2 class="section-heading">This is Just the Beginning</h2>
             <div class="section-content">
                 <p class="section-text" style="text-align: center; margin-bottom: 2rem;">
-                    As Lumi Forge grows, we're building features that will revolutionize how creators and explorers connect:
+                    As <span class="lumi-forge-text">Lumi Forge</span> grows, we're building features that will revolutionize how creators and explorers connect:
                 </p>
                 
                 <div class="future-features">
