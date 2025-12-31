@@ -76,6 +76,7 @@
             padding: 0;
             overflow-x: hidden;
             box-sizing: border-box;
+            scroll-behavior: smooth;
         }
         
         /* Custom Scrollbar Styling */
@@ -367,14 +368,45 @@
             display: block;
         }
         
+        .description-container {
+            margin-top: 5rem;
+            margin-bottom: 5rem;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 800px;
+            width: 100%;
+            animation: slideUp 1s ease-out 0.6s backwards;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .description-item {
+            font-size: calc(var(--text-default-size) * 1.25 * var(--text-scale-factor));
+            color: var(--text-color);
+            line-height: 1.6;
+            font-weight: 300;
+            transition: color 0.5s ease;
+            box-sizing: border-box;
+            text-align: left;
+            margin: 0;
+        }
+        
         @media (min-width: 1280px) {
             .description {
+                max-width: 750px;
+            }
+            .description-container {
                 max-width: 750px;
             }
         }
         
         @media (min-width: 1536px) {
             .description {
+                max-width: 60%;
+                width: 60%;
+            }
+            .description-container {
                 max-width: 60%;
                 width: 60%;
             }
@@ -453,7 +485,7 @@
             font-size: calc(var(--text-default-size) * var(--h2-ratio) * var(--text-scale-factor));
             font-weight: 700;
             color: var(--highlight-color);
-            text-align: center;
+            text-align: left;
             margin: 0;
             transition: color 0.5s ease;
             animation: fadeInUp 0.8s ease-out backwards;
@@ -492,7 +524,7 @@
             line-height: 1.6;
             color: var(--text-color);
             transition: color 0.5s ease;
-            text-align: center;
+            text-align: left;
             width: 100%;
             max-width: 100%;
         }
@@ -608,7 +640,7 @@
         .section-image-caption {
             font-size: calc(var(--text-default-size) * 0.972 * var(--text-scale-factor));
             color: var(--secondary-text);
-            text-align: center;
+            text-align: left;
             font-style: italic;
             margin-top: 0.5rem;
             margin-bottom: 0;
@@ -631,6 +663,69 @@
         
         .section:nth-child(2) .feature-list {
             animation-delay: 1.3s;
+        }
+        
+        .games-image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            gap: 1.5rem;
+            width: 100%;
+            margin: 2rem 0;
+            animation: fadeInUp 0.8s ease-out backwards;
+            animation-delay: 1.1s;
+        }
+        
+        .game-image-wrapper {
+            width: 150px;
+            max-width: 180px;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .game-image-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        html:not(.dark) .game-image-wrapper {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        html.dark .game-image-wrapper {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-image-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        @media (min-width: 768px) {
+            .game-image-wrapper {
+                width: 180px;
+                max-width: 200px;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .game-image-wrapper {
+                width: 200px;
+                max-width: 220px;
+            }
+        }
+        
+        @media (min-width: 1536px) {
+            .game-image-wrapper {
+                width: 220px;
+                max-width: 240px;
+            }
         }
         
         .feature-item {
@@ -737,6 +832,72 @@
         .creator-contact-name {
             font-weight: 600;
             color: var(--highlight-color);
+        }
+        
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            padding: 1rem;
+            width: 100%;
+            max-width: 1000px;
+            animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        }
+        
+        .nav-button {
+            padding: 0.5rem 1.5rem;
+            margin: 0 1rem;
+            font-size: calc(var(--text-default-size) * 1 * var(--text-scale-factor));
+            font-weight: 500;
+            color: var(--text-color);
+            background: transparent;
+            border: 2px solid var(--highlight-color);
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+        
+        .nav-button:hover {
+            background: var(--highlight-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        html:not(.dark) .nav-button {
+            border-color: var(--highlight-color);
+        }
+        
+        html:not(.dark) .nav-button:hover {
+            background: var(--highlight-color);
+            color: white;
+        }
+        
+        html.dark .nav-button {
+            border-color: var(--highlight-color);
+        }
+        
+        html.dark .nav-button:hover {
+            background: var(--highlight-color);
+            color: var(--bg-color);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-menu {
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+            
+            .nav-button {
+                padding: 0.5rem 1rem;
+                font-size: calc(var(--text-default-size) * 1 * var(--text-scale-factor));
+            }
         }
         
         /* Mission Section */
@@ -922,6 +1083,47 @@
           
             backdrop-filter: blur(0.5em);
             -webkit-backdrop-filter: blur(0.5em);
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 5.5rem;
+            right: 0.5rem;
+            z-index: 29;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: var(--toggle-bg);
+            backdrop-filter: blur(0.5em);
+            -webkit-backdrop-filter: blur(0.5em);
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+        
+        .scroll-to-top:hover {
+            opacity: 0.8;
+            transform: scale(1.1);
+        }
+        
+        .scroll-to-top svg {
+            width: 1.25rem;
+            height: 1.25rem;
         }
         
         /* Theme Toggle Button */
@@ -1567,8 +1769,15 @@
             </div>
         </div>
         
-
-     
+        <!-- Navigation Menu -->
+        <nav class="nav-menu">
+            <a href="#creators" class="nav-button">For Creators</a>
+            <a href="#explorers" class="nav-button">For Explorers</a>
+            <a href="#games" class="nav-button">Exploration Games</a>
+            <a href="#micro-explorations" class="nav-button">Micro-Explorations</a>
+            <a href="#mission" class="nav-button">Our Mission</a>
+            <a href="#future" class="nav-button">What's Next</a>
+        </nav>
 
                   <div class="content-wrapper">
               <div class="image-caption-wrapper video-wrapper" style="animation: fadeInUp 0.8s ease-out 0.7s backwards;">
@@ -1583,9 +1792,19 @@
                 </div>
             </div>
 
-                   <p class="description">
-                <span class="lumi-forge-text">Lumi Forge</span> transforms books, articles, workforce traning materials, videos and their transcripts, professional development content, courses and so much more into dynamic, interactive experiences where ideas come alive. We turn static words into living journeys where people don't just read or watch, but genuinely explore, question, and internalize knowledge. Through AI-powered interactions, reflective prompts, and immersive pathways, we're making the transformative power of words accessible to everyone.
-            </p>
+                   <div class="description-container">
+               <p class="description-item">
+                   <span class="lumi-forge-text">Creators</span>, tired of watching your content go unread, your courses abandoned, your ideas forgotten?
+               </p> 
+               
+               <p class="description-item">
+                   <span class="lumi-forge-text">Explorers</span>, are you frustrated by passive consumption that leaves you skimming without understanding, reading without retaining, learning without internalizing?
+               </p> 
+               
+               <p class="description-item">
+                   <span class="lumi-forge-text">Lumi Forge</span> transforms books, articles, training materials, videos, courses, and more into interactive journeys where creators' words become living experiences that truly engage, and explorers' learning becomes active participation that truly sticks. We turn static content into dynamic conversations, where every idea invites exploration, every concept prompts reflection, and knowledge transforms from something you consume into something you discover.
+               </p>
+            </div>
             
 
 
@@ -1616,7 +1835,7 @@
         <div class="section-divider" style="animation-delay: 0.7s;"></div>
         
         <!-- For Creators Section -->
-        <div class="section">
+        <div id="creators" class="section">
             <h2 class="section-heading">For Creators</h2>
             <div class="section-content">
                 <p class="section-text">
@@ -1708,7 +1927,7 @@
                         <strong>Privacy-First AI:</strong> We use strict privacy settings and enterprise-grade AI services with commercial terms that strictly prohibit training on your data. Your content is never used to train AI models.
                     </li>
                     <li class="feature-item">
-                        <strong>Zero Data Retention:</strong> When you use Creator Studio, data sent to AI providers is ephemeral—used only to generate your response and then discarded. Your content stays confidential.
+                        <strong>Zero Data Retention:</strong> When you use Creator Studio, data sent to AI providers is ephemeral, used only to generate your response and then discarded. Your content stays confidential.
                     </li>
                     <li class="feature-item">
                         <strong>No Third-Party Training:</strong> We do not consent to your content being used to train any third-party models. Your intellectual property is protected at every step.
@@ -1725,7 +1944,7 @@
         <div class="section-divider" style="animation-delay: 1.1s;"></div>
         
         <!-- For Explorers Section -->
-        <div class="section">
+        <div id="explorers" class="section">
             <h2 class="section-heading">For Explorers</h2>
             <div class="section-content">
                 <p class="section-text">
@@ -1797,10 +2016,72 @@
                 </div>
             </div>
         
+        <div class="section-divider" style="animation-delay: 1.2s;"></div>
+        
+        <!-- Learning Games Section -->
+        <div id="games" class="section">
+            <h2 class="section-heading">Learning Games: Where Knowledge Becomes Play</h2>
+            <div class="section-content">
+                <p class="section-text">
+                    What if review sessions felt like play? What if your interactive questions could become engaging games that explorers actually want to return to? <span class="lumi-forge-text">Lumi Forge</span> transforms the Luminations from your content into five distinct learning games that turn passive review into active, memorable experiences.
+                </p>
+                
+                <p class="section-text">
+                    For creators, these games solve the engagement problem: your content's interactive moments automatically become game content that keeps explorers coming back, reinforcing understanding and building deeper connections with your ideas. For explorers, these games solve the retention problem: what feels like studying becomes an activity you want to do, where knowledge sticks through active engagement rather than passive review.
+                </p>
+                
+                <h3 style="font-family: 'Merriweather', serif; font-size: calc(var(--text-default-size) * var(--h3-ratio) * var(--text-scale-factor)); color: var(--highlight-color); margin-top: 2rem; margin-bottom: 1rem; transition: color 0.5s ease;">Five Games, Infinite Engagement</h3>
+                
+                <div class="games-image-container">
+                    <div class="game-image-wrapper">
+                        <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/thumbs-start.webp" alt="Thumbs Game" />
+                    </div>
+                    <div class="game-image-wrapper">
+                        <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/the-prism-start.webp" alt="The Prism Game" />
+                    </div>
+                    <div class="game-image-wrapper">
+                        <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/think-fast-start.webp" alt="Think Fast Game" />
+                    </div>
+                    <div class="game-image-wrapper">
+                        <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/letter-by-letter-start.webp" alt="Letter By Letter Game" />
+                    </div>
+                    <div class="game-image-wrapper">
+                        <img src="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/render/image/public/darkVioletPublic/lumi-forge/landing/synthesis-start.webp" alt="Synthesis Game" />
+                    </div>
+                </div>
+                
+                <p class="section-text">
+                    Each game transforms different question types from your learning journey into unique, engaging challenges:
+                </p>
+                
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <strong>Thumbs:</strong> Fast-paced questions that rise from the bottom, testing quick recall and immediate understanding. Perfect for reinforcing facts and concepts through rapid-fire engagement.
+                    </li>
+                    <li class="feature-item">
+                        <strong>The Prism:</strong> Transform reflection prompts into contemplative writing experiences where thoughts power a mystical 3D prism. Encourages deep processing and written expression of complex ideas.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Think Fast:</strong> Strategic elimination game where wrong answers disappear over time, creating urgency and rewarding quick decision-making. Builds fast recall and strategic thinking.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Letter By Letter:</strong> Fill-in-the-blank questions become strategic word-guessing challenges with a spinning wheel for XP stakes. Perfect for vocabulary building and spelling practice.
+                    </li>
+                    <li class="feature-item">
+                        <strong>Synthesis:</strong> Short-answer questions transform into intense, time-pressured challenges where you stabilize a critical core system. Rewards fast typing, quick recall, and strategic resource management.
+                    </li>
+                </ul>
+                
+                <p class="section-text" style="margin-top: 2rem;">
+                    Every game features scoring (XP), streak tracking, lives systems, and immediate feedback with explanations. Designed with a mobile portrait game aesthetic, these games feel natural on any device, from phones to ultra HD displays. Your Luminations automatically become game content, creating a seamless bridge between learning and play that keeps explorers engaged and helps creators' content truly resonate.
+                </p>
+            </div>
+        </div>
+        
         <div class="section-divider" style="animation-delay: 1.3s;"></div>
         
         <!-- Micro-Explorations: Doom Scrolling for Good -->
-        <div class="section">
+        <div id="micro-explorations" class="section">
             <h2 class="section-heading">Doom Scrolling for Good</h2>
             <div class="section-content">
                 <p class="section-text">
@@ -1820,7 +2101,7 @@
                     Instead of endless scrolling through content designed to provoke and divide, Micro-Explorations offer a swipeable feed of focused learning. Each card delivers a bite-sized insight, a thought-provoking question, or a moment of reflection. The familiar gesture of swiping becomes a pathway to understanding, replacing passive consumption with active exploration.
                 </p>
                 
-                <p class="section-text" style="font-weight: 500; color: var(--highlight-color); text-align: center; margin-top: 1.5rem;">
+                <p class="section-text" style="font-weight: 500; color: var(--highlight-color); text-align: left; margin-top: 1.5rem;">
                     Turn your scroll into discovery. Replace doom scrolling with learning that matters.
                 </p>
             </div>
@@ -1829,7 +2110,7 @@
         <div class="section-divider" style="animation-delay: 1.5s;"></div>
         
         <!-- Mission & Vision Section -->
-        <div class="section">
+        <div id="mission" class="section">
             <h2 class="section-heading">Sparking a Renaissance of Exploration</h2>
             <div class="section-content mission-section">
                 <p class="mission-text">
@@ -1844,10 +2125,10 @@
         <div class="section-divider" style="animation-delay: 1.7s;"></div>
         
         <!-- Coming Soon Features -->
-        <div class="section">
+        <div id="future" class="section">
             <h2 class="section-heading">This is Just the Beginning</h2>
             <div class="section-content">
-                <p class="section-text" style="text-align: center; margin-bottom: 2rem;">
+                <p class="section-text" style="text-align: left; margin-bottom: 2rem;">
                     As <span class="lumi-forge-text">Lumi Forge</span> grows, we're building features that will revolutionize how creators and explorers connect:
                 </p>
                 
@@ -1891,6 +2172,13 @@
         </div>
     </div>
     
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+    </button>
+    
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
         <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -1907,7 +2195,7 @@
     
     <footer class="footer">
         <div class="footer-content">
-            <div>Copyright © 2025 <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer" class="footer-link">DarkViolet.ai LLC</a> All rights reserved.</div>
+            <div>Copyright © 2026 <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer" class="footer-link">DarkViolet.ai LLC</a> All rights reserved.</div>
         </div>
     </footer>
     
@@ -1964,6 +2252,73 @@
             if (toggleButton) {
                 toggleButton.addEventListener('click', toggleTheme);
             }
+        })();
+        
+        // Scroll to Top Button
+        (function() {
+            const scrollToTopButton = document.getElementById('scroll-to-top');
+            if (!scrollToTopButton) return;
+            
+            // Function to check scroll position and show/hide button
+            function handleScroll() {
+                const scrollThreshold = window.innerHeight; // 100svh (100% of viewport height)
+                const scrollY = window.scrollY || window.pageYOffset;
+                
+                if (scrollY >= scrollThreshold) {
+                    scrollToTopButton.classList.add('visible');
+                } else {
+                    scrollToTopButton.classList.remove('visible');
+                }
+            }
+            
+            // Function to scroll to top smoothly
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+            
+            // Add scroll event listener
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            
+            // Add click listener
+            scrollToTopButton.addEventListener('click', scrollToTop);
+            
+            // Check initial scroll position
+            handleScroll();
+        })();
+        
+        // Navigation Menu Smooth Scrolling
+        (function() {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId && targetId.startsWith('#')) {
+                        const targetSection = document.querySelector(targetId);
+                        
+                        if (targetSection) {
+                            // Find the section heading within the section for more precise targeting
+                            const sectionHeading = targetSection.querySelector('.section-heading');
+                            const targetElement = sectionHeading || targetSection;
+                            
+                            // Use getBoundingClientRect for accurate position calculation
+                            const rect = targetElement.getBoundingClientRect();
+                            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                            const targetPosition = rect.top + scrollTop - 60; // 60px offset from top for better visibility
+                            
+                            window.scrollTo({
+                                top: Math.max(0, targetPosition), // Ensure we don't scroll to negative position
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
         })();
     </script>
 </body>
