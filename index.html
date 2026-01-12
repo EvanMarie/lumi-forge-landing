@@ -900,6 +900,49 @@
             }
         }
         
+        /* PDF Download Button - styled like nav buttons */
+        .pdf-download-button {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            margin: 0;
+            font-size: calc(var(--text-default-size) * 1 * var(--text-scale-factor));
+            font-weight: 500;
+            color: var(--text-color);
+            background: transparent;
+            border: 2px solid var(--highlight-color);
+            border-radius: 2rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            white-space: nowrap;
+        }
+        
+        .pdf-download-button:hover {
+            background: var(--highlight-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        html:not(.dark) .pdf-download-button {
+            border-color: var(--highlight-color);
+        }
+        
+        html:not(.dark) .pdf-download-button:hover {
+            background: var(--highlight-color);
+            color: white;
+        }
+        
+        html.dark .pdf-download-button {
+            border-color: var(--highlight-color);
+        }
+        
+        html.dark .pdf-download-button:hover {
+            background: var(--highlight-color);
+            color: var(--bg-color);
+        }
+        
         /* Mission Section */
         .mission-section {
             max-width: 100%;
@@ -1817,6 +1860,9 @@
                     <a href="tel:6785200677">678-520-0677</a> • 
                     <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer">darkviolet.ai</a>
                 </div>
+                <div style="margin-top: 1rem;">
+                    <a href="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/lumi-forge/documents/Lumi-Forge-Creator-Introduction.pdf" target="_blank" rel="noopener noreferrer" class="pdf-download-button">Founding Creators Program Guide</a>
+                </div>
             </div>
 
                         <div class="image-caption-wrapper video-wrapper" style="animation: fadeInUp 0.8s ease-out 0.7s backwards;">
@@ -1837,6 +1883,9 @@
         <!-- For Creators Section -->
         <div id="creators" class="section">
             <h2 class="section-heading">For Creators</h2>
+            <div style="margin-bottom: 1.5rem;">
+                <a href="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/lumi-forge/documents/Lumi-Forge-Creator-Introduction.pdf" target="_blank" rel="noopener noreferrer" class="pdf-download-button">Founding Creators Program Guide</a>
+            </div>
             <div class="section-content">
                 <p class="section-text">
                     Transform your written or spoken words into interactive journeys that captivate your audience. <span class="lumi-forge-text">Lumi Forge</span> ignites the power of your words and turns them into dynamic, AI-powered experiences.
@@ -2167,6 +2216,9 @@
                     <a href="mailto:lumiforge@lumiforge.io" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">lumiforge@lumiforge.io</a> • 
                     <a href="tel:6785200677" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">678-520-0677</a> • 
                     <a href="https://darkviolet.ai" target="_blank" rel="noopener noreferrer" style="color: var(--highlight-color); text-decoration: underline; transition: opacity 0.3s ease;">darkviolet.ai</a>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="https://mhejreuxaxxodkdlfcoq.supabase.co/storage/v1/object/public/darkVioletPublic/lumi-forge/documents/Lumi-Forge-Creator-Introduction.pdf" target="_blank" rel="noopener noreferrer" class="pdf-download-button">Founding Creators Program Guide</a>
                 </div>
             </div>
         </div>
